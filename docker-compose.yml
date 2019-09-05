@@ -6,6 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     working_dir: /srv/app/
+    command: /bin/bash -c "python manage.py migrate && python manage.py runserver 0:8000"
     volumes:
       - ./:/srv/app/
     ports:
