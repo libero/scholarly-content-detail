@@ -1,0 +1,9 @@
+language: minimal
+
+services: docker
+
+install:
+    - travis_retry docker-compose build
+
+script:
+  - make tests
