@@ -1,9 +1,17 @@
+help:
+	@echo "start  - builds and/or starts all services"
+	@echo "stop   - stops all running containers belonging to the project"
+	@echo "shell  - enter the shell of the application service"
 
 start:
-	docker-compose up
+	docker-compose -f docker/docker-compose.dev.yml up
 
 stop:
-	docker-compose down -v
+	docker-compose -f docker/docker-compose.dev.yml down -v
+
+.PHONY: tests
+tests:
+	docker-compose -f docker/docker-compose.test.yml run --rm --service-ports api_tests pytest --ds=scholarly_content_detail.settings.test -v
 
 shell:
-	docker-compose run --rm --service-ports app bash
+	docker-compose -f ./docker/docker-compose.dev.yml run --rm --service-ports app bash
