@@ -1,9 +1,9 @@
 from django.db import models
 
 
-class Journals(models.Model):
+class Category(models.Model):
     name = models.CharField(max_length=200)
 
 
-class Categories(models.Model):
+class Journal(models.Model):
     name = models.CharField(max_length=200)

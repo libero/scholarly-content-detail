@@ -3,3 +3,6 @@
 
 # local database files
 db.sqlite3
+
+# pytest generated files
+.pytest_cache/
