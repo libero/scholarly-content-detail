@@ -10,7 +10,7 @@ def test_categories_can_be_listed(client):
 
     response = client.get('/api/categories/')
     assert response.status_code == 200
-    assert len(response.data['results']) == num_items_to_list
+    assert response.data['count'] == num_items_to_list
 
 
 @pytest.mark.django_db
