@@ -11,7 +11,7 @@ stop:
 
 .PHONY: tests
 tests:
-	docker-compose -f docker/docker-compose.test.yml run --rm --service-ports api_tests pytest --ds=scholarly_content_detail.settings.test -v
+	docker-compose -f docker/docker-compose.test.yml run --rm --service-ports api_tests
 
 shell:
 	docker-compose -f ./docker/docker-compose.dev.yml run --rm --service-ports app bash

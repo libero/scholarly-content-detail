@@ -9,3 +9,4 @@ services:
     working_dir: /srv/app
     volumes:
       - ../:/srv/app
+    command: pytest --ds=scholarly_content_detail.settings.test -v
