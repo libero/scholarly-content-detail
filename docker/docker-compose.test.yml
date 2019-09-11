@@ -1,7 +1,7 @@
 version: "3.4"
 
 services:
-  api_tests:
+  app-tests:
     build:
       context: ..
       dockerfile: docker/Dockerfile
@@ -9,4 +9,4 @@ services:
     working_dir: /srv/app
     volumes:
       - ../:/srv/app
-    command: pytest --ds=scholarly_content_detail.settings.test -v
+    command: pytest -v

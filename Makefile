@@ -11,7 +11,7 @@ stop:
 
 .PHONY: tests
 tests:
-	docker-compose -f docker/docker-compose.test.yml run --rm --service-ports api_tests
+	docker-compose -f docker/docker-compose.test.yml run --rm --service-ports app-tests
 
 shell:
 	docker-compose -f ./docker/docker-compose.dev.yml run --rm --service-ports app bash

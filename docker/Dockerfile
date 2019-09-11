@@ -4,10 +4,6 @@ WORKDIR /srv/app
 
 COPY ./requirements/ requirements/
 RUN pip install --no-cache-dir -r requirements/base.txt
-COPY . .
-
-EXPOSE 8000
-CMD ["python", "manage.py", "runserver", "0:8000"]
 
 
 FROM base as dev
@@ -19,3 +15,13 @@ RUN chmod +x /wait
 
 RUN pip install --no-cache-dir -r requirements/dev.txt \
     && rm -rf /tmp/*
+
+COPY . .
+
+EXPOSE 5000
+CMD ["flask", "run", "--host=0.0.0.0"]
+
+
+FROM base as prod
+
+COPY ./scholarly_content_detail/ scholarly_content_detail/
