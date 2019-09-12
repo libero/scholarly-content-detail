@@ -3,7 +3,7 @@ version: "3.4"
 services:
   db:
     image: postgres:11.2
-    environment:
+    environment: &postgres_envs
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: example
       POSTGRES_DB: scholarly-content-detail-db
@@ -13,27 +13,17 @@ services:
       timeout: 30s
       retries: 3
 
-  migrate:
-    &django
+  app:
     build:
       context: ..
       dockerfile: docker/Dockerfile
       target: dev
-    command: >
-      /bin/bash -c "/wait && python manage.py migrate
-      --settings=scholarly_content_detail.settings.dev"
-    working_dir: /srv/app/
+    volumes:
+      - "../:/srv/app/"
+    environment:
+      <<: *postgres_envs
+      WAIT_HOSTS: db:5432
     depends_on:
       - db
-    volumes:
-      - ../:/srv/app/
-    environment:
-      WAIT_HOSTS: db:5432
-
-  app:
-    <<: *django
-    command: >
-      /bin/bash -c "/wait && python manage.py runserver 0:8000
-      --settings=scholarly_content_detail.settings.dev"
     ports:
-      - 8000:8000
+      - "5000:5000"
