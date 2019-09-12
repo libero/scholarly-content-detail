@@ -28,14 +28,6 @@ class Category(db.Model):
         articles = Article.query.filter(Article.id.in_(article_ids)).all()
         self.articles.extend(articles)
 
-    def save(self):
-        db.session.add(self)
-        db.session.commit()
-
-    def delete(self):
-        db.session.delete(self)
-        db.session.commit()
-
     def __repr__(self):
         return '<Category \'%s\': %s>' % (self.id, self.name)
 
@@ -55,14 +47,6 @@ class Article(db.Model):
     def add_categories_by_id(self, category_ids):
         categories = Category.query.filter(Category.id.in_(category_ids)).all()
         self.categories.extend(categories)
-
-    def save(self):
-        db.session.add(self)
-        db.session.commit()
-
-    def delete(self):
-        db.session.delete(self)
-        db.session.commit()
 
     def __repr__(self):
         return '<Article \'%s>\'' % self.id

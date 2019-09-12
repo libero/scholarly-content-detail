@@ -17,7 +17,8 @@ def get_articles_blueprint():
             category_ids = request.json.get('categories', [])
             article.categories = []
             article.add_categories_by_id(category_ids)
-        article.save()
+        models.db.session.add(article)
+        models.db.session.commit()
         return Response(status=status)
 
     return blueprint
