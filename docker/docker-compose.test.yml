@@ -6,7 +6,9 @@ services:
       context: ..
       dockerfile: docker/Dockerfile
       target: dev
-    working_dir: /srv/app
-    volumes:
-      - ../:/srv/app
     command: pytest -v
+    environment:
+      FLASK_APP: scholarly_content_detail:create_app('test.py')
+    volumes:
+      - "../:/srv/app"
+    working_dir: /srv/app

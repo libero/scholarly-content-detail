@@ -18,17 +18,12 @@ services:
       context: ..
       dockerfile: docker/Dockerfile
       target: dev
-    command: /bin/bash -c "/wait && flask run --host=0.0.0.0"
     working_dir: /srv/app/
     volumes:
-      - ../:/srv/app/
+      - "../:/srv/app/"
     environment:
       <<: *postgres_envs
       WAIT_HOSTS: db:5432
-      FLASK_APP: scholarly_content_detail:create_app('dev.py')
-    healthcheck:
-      test: ["CMD-SHELL", "bash -c 'echo > /dev/tcp/localhost/5000'"]
-      interval: 5s
     depends_on:
       - db
     ports:
