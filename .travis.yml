@@ -3,7 +3,7 @@ language: minimal
 services: docker
 
 install:
-    - travis_retry docker-compose -f docker/docker-compose.test.yml build
+    - travis_retry make build-tests
 
 script:
   - make tests

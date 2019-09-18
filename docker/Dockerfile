@@ -3,7 +3,14 @@ FROM python:3.7.4-slim as base
 WORKDIR /srv/app
 
 COPY ./requirements/ requirements/
-RUN pip install --no-cache-dir -r requirements/base.txt \
+RUN pip install -U pip \
+    && set -ex \
+    && apt-get update -yq \
+    && apt-get install -yq --no-install-recommends \
+        git \
+    && pip install --no-cache-dir -r requirements/base.txt \
+    && rm -rf ~/.cache/* \
+    && rm -rf /var/lib/apt/lists/* \
     && rm -rf /tmp/*
 
 
