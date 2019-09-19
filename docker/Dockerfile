@@ -9,6 +9,8 @@ RUN pip install -U pip \
     && apt-get install -yq --no-install-recommends \
         git \
     && pip install --no-cache-dir -r requirements/base.txt \
+    && apt-get remove --purge --autoremove -yq \
+        git \
     && rm -rf ~/.cache/* \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /tmp/*
