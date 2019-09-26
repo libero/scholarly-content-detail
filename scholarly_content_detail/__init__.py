@@ -17,8 +17,6 @@ def create_app(config_file_name):
     db.init_app(app)
     # create tables
     db.create_all(app=app)
-    # set decoder used to serialise
-    # app.json_decoder = JSONEncoder
 
     app.register_blueprint(get_articles_blueprint())
     app.register_blueprint(get_categories_blueprint())
