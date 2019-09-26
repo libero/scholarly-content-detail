@@ -1,7 +1,10 @@
 from flask import Flask
 from flask_ping import get_ping_blueprint
+from werkzeug.exceptions import HTTPException
 
-from scholarly_content_detail.article_views import get_articles_blueprint
+from scholarly_content_detail.views.article_views import get_articles_blueprint
+from scholarly_content_detail.views.category_views import get_categories_blueprint
+from scholarly_content_detail.error_handlers import http_error_handler
 
 
 def create_app(config_file_name):
@@ -14,8 +17,13 @@ def create_app(config_file_name):
     db.init_app(app)
     # create tables
     db.create_all(app=app)
+    # set decoder used to serialise
+    # app.json_decoder = JSONEncoder
 
     app.register_blueprint(get_articles_blueprint())
+    app.register_blueprint(get_categories_blueprint())
     app.register_blueprint(get_ping_blueprint())
+
+    app.register_error_handler(HTTPException, http_error_handler)
 
     return app
