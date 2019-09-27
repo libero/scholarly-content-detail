@@ -7,9 +7,9 @@ def http_error_handler(error):
     response = error.get_response()
     # replace the body with JSON
     response.data = json.dumps({
-        "code": error.code,
-        "name": error.name,
-        "description": error.description,
+        "type": error.code,
+        "title": error.name,
+        "detail": error.description,
     })
     response.content_type = "application/problem+json"
     return response
