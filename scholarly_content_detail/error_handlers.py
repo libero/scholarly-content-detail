@@ -11,5 +11,5 @@ def http_error_handler(error):
         "name": error.name,
         "description": error.description,
     })
-    response.content_type = "application/json"
+    response.content_type = "application/problem+json"
     return response
