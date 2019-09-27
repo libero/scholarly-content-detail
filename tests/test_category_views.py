@@ -1,6 +1,6 @@
 import pytest
 
-from tests.factories import CategoryFactory, ArticleFactory
+from tests.factories import CategoryFactory
 
 
 @pytest.mark.parametrize('num_of_categories', [1, 3, 0])
@@ -14,18 +14,14 @@ def test_categories_can_be_listed(client, num_of_categories):
 
 
 def test_get_category_by_id(client):
-    article = ArticleFactory()
-    category = CategoryFactory(articles=[article])
+    category = CategoryFactory()
     response = client.get('/categories/%s' % category.id)
 
     assert response.status_code == 200
     assert response.content_type == 'application/json'
     expected = {
         'id': category.id,
-        'name': category.name,
-        'articles': [
-            article.id
-        ]
+        'name': category.name
     }
     assert response.json == expected
 
@@ -33,6 +29,7 @@ def test_get_category_by_id(client):
 def test_get_category_by_id_returns_404_if_id_does_not_exist(client):
     response = client.get('/categories/1234')
     assert response.status_code ==  404
+    assert response.content_type == 'application/problem+json'
 
 
 def test_get_category_by_name(client):
@@ -44,8 +41,7 @@ def test_get_category_by_name(client):
     expected = {'items': [
         {
             'id': category.id,
-            'name': category.name,
-            'articles': []
+            'name': category.name
         }
     ]}
     assert response.json == expected

@@ -11,6 +11,7 @@ class BaseSchema(ModelSchema):
 class CategorySerializer(BaseSchema):
     class Meta(BaseSchema.Meta):
         model = models.Category
+        fields = ('id', 'name',)
 
 
 class ArticleSerializer(BaseSchema):
